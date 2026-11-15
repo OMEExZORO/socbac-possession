@@ -1,0 +1,4 @@
+# Our additions on top of the starter requirements. Kept separate so upstream files stay unedited.
+-r requirements-starter.txt
+
+lightgbm

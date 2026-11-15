@@ -1,0 +1,2 @@
+# keep shipped model files byte-exact (their SHA-256 is checked before use)
+models/** -text

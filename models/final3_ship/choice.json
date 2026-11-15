@@ -1,0 +1,77 @@
+{
+ "rev": "pf3",
+ "tn_epoch": 48,
+ "w_tn": 0.5,
+ "variants": {
+  "pcf": {
+   "gbm": "gbm_pc7.txt",
+   "gbm_prior": "gbm_pc7_prior.npy",
+   "switch_team": 8.0,
+   "switch_dead": 20.0
+  },
+  "pct": {
+   "gbm": "../../pipeline_final2/ship/gbm_final7.txt",
+   "gbm_sha256": "10255001b5cf750b13b098ff7a7d0a36c0716defe9aa6b6eafeff3d8ec76f57e",
+   "gbm_prior": "../../pipeline_final2/ship/gbm_final7_prior.npy",
+   "gbm_prior_sha256": "dc3451cd56cf13847157e098f4f762a8e27ebe47724e6c86cb8b96ffbde1b767",
+   "switch_team": 12.0,
+   "switch_dead": 10.0
+  }
+ },
+ "tn_prior": [
+  0.27582322339733745,
+  0.27582322339733745,
+  0.4483535532053251
+ ],
+ "tn_cfg": {
+  "hidden": 128,
+  "layers": 2,
+  "drop": 0.1,
+  "T": 1500,
+  "batch": 16,
+  "lr": 0.002,
+  "wd": 0.01,
+  "gamma": 0.96,
+  "epochs": 80,
+  "ckpt_every": 8,
+  "ema": 0.98,
+  "p_mask": 0.0,
+  "label_smooth": 0.05,
+  "aux": 0.3,
+  "kd": 0.5
+ },
+ "rec_cfg": {
+  "d": 96,
+  "heads": 4,
+  "n_sab": 3,
+  "temporal": "gru",
+  "hidden": 64,
+  "rnn_layers": 1,
+  "drop": 0.1,
+  "T": 300,
+  "batch": 16,
+  "lr": 0.002,
+  "wd": 0.01,
+  "gamma": 0.95,
+  "warmup": 1,
+  "label_smooth": 0.05,
+  "use_ball": true,
+  "p_swap": 0.5,
+  "p_mirror": 0.5,
+  "p_mask": 0.5,
+  "boundary_w": 1.0,
+  "epochs": 45,
+  "ckpt_every": 6,
+  "ema": 0.98,
+  "hop": 150,
+  "tta": "swap_mirror",
+  "infer_batch": 32
+ },
+ "training_copies": "pc_degrade (rev pc1) x2 per open match, seed 60000*k + 1000*0 + index",
+ "seeds": {
+  "rec_lomo7": 7100,
+  "rec_final7": 7107,
+  "teacher_lomo7": 9100,
+  "tn_final7": 7
+ }
+}
