@@ -19,14 +19,13 @@ degraded to resemble the provided automatic tracking.
   distillation from a teacher that saw the clean ball.
 
 The two possession models' per-frame probabilities of H / A / D are averaged and decoded per half
-by a three-state Viterbi path with team-switch cost 30 (dead-ball cost 20). Possession labels count a change only after controlled possession:
-merges of opposing runs shorter than 1 s and 2 s, pooled.
+by a three-state Viterbi path with team-switch cost 30 (dead-ball cost 20). The touch network was trained on labels that count a change only after controlled possession (merges of opposing runs shorter than 1 s and 2 s, pooled). The team-switch cost of 30 is a pre-declared hedge between possible label definitions: a higher cost favours longer, controlled-possession spells (technical document, section 4.5).
 
 A **tempo wrapper** around all three models measures one label-free number on the provided match,
 its playing pace. If the match is slower than the training matches, it resamples the frames to the
 training pace before prediction and maps the result back.
 
-No label, video frame or ground-truth value of the provided match is used to train the models or to choose their settings. A few label-free summaries of the provided tracking, and early checks against the public 5-minute window, influenced the design; the technical document lists them (section 9).
+No label, video frame or ground-truth value of the provided match is used to train the models or to tune their settings. A few label-free summaries of the provided tracking, the organisers' published summary of the public window, and early checks against that window influenced the design; the technical document lists them (section 9).
 
 ## Reproduce
 
@@ -88,7 +87,7 @@ Hugging Face commit):
 
 ### Why the weights are shipped
 - The neural weights were trained with this repository's code on the 7 open matches only. They
-  contain nothing from the provided match.
+  contain no frame of the provided match (one degradation setting was derived from its aggregates, see section 9.2 of the technical document).
 - Neural training is bit-reproducible only on the same GPU and software stack. Retraining elsewhere
   gives weights that differ in the last bits, and a CSV that differs in a few frames.
 - Shipping the weights and predicting on CPU makes the CSV identical on any machine.
